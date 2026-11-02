@@ -1,0 +1,49 @@
+
+<div class="payment-container">
+  <h2>Payment Status</h2>
+  <p>Check payment details for completed auctions.</p>
+
+  <select [(ngModel)]="selectedStatus" class="filter-box">
+    <option value="All">All Payments</option>
+    <option value="Paid">Paid</option>
+    <option value="Pending">Pending</option>
+    <option value="Failed">Failed</option>
+  </select>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Auction ID</th>
+          <th>Product</th>
+          <th>Winner</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (payment of filteredPayments; track payment.id) {
+          <tr>
+            <td>{{ payment.id }}</td>
+            <td>{{ payment.product }}</td>
+            <td>{{ payment.winner }}</td>
+            <td>₹{{ payment.amount }}</td>
+            <td>
+              <span
+                [class.paid]="payment.status === 'Paid'"
+                [class.pending]="payment.status === 'Pending'"
+                [class.failed]="payment.status === 'Failed'">
+                {{ payment.status }}
+              </span>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5">No payments found.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

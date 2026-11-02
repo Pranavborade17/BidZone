@@ -1,0 +1,29 @@
+
+<div class="winner-container">
+  <h2>Auction Winners</h2>
+  <p>View winners of completed auctions.</p>
+
+  <select [(ngModel)]="selectedAuction" class="filter-box">
+    <option [ngValue]="0">All Winners</option>
+
+    @for (winner of winners; track winner.auctionId) {
+      <option [ngValue]="winner.auctionId">
+        {{ winner.product }}
+      </option>
+    }
+  </select>
+
+  <div class="winner-list">
+    @for (winner of filteredWinners; track winner.auctionId) {
+      <div class="winner-card">
+        <h3>{{ winner.product }}</h3>
+        <p>Auction ID: {{ winner.auctionId }}</p>
+        <p>Winner: {{ winner.winnerName }}</p>
+        <p>Winning Bid: ₹{{ winner.winningBid }}</p>
+        <p class="winner-status">Winner Selected</p>
+      </div>
+    } @empty {
+      <p>No winners found.</p>
+    }
+  </div>
+</div>

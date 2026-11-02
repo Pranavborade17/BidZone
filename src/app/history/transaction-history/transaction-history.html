@@ -1,0 +1,51 @@
+
+<div class="transaction-container">
+  <h2>Transaction History</h2>
+  <p>View payment transaction records.</p>
+
+  <input
+    type="text"
+    placeholder="Search ID, product or buyer..."
+    [(ngModel)]="searchText"
+    class="search-box"
+  >
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Product</th>
+          <th>Buyer</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (transaction of filteredTransactions; track transaction.id) {
+          <tr>
+            <td>{{ transaction.id }}</td>
+            <td>{{ transaction.product }}</td>
+            <td>{{ transaction.buyer }}</td>
+            <td>₹{{ transaction.amount }}</td>
+            <td>{{ transaction.date }}</td>
+            <td>
+              <span
+                [class.paid]="transaction.status === 'Paid'"
+                [class.pending]="transaction.status === 'Pending'"
+                [class.failed]="transaction.status === 'Failed'">
+                {{ transaction.status }}
+              </span>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6">No transactions found.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

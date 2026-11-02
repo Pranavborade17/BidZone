@@ -1,0 +1,42 @@
+
+<div class="history-container">
+  <h2>Auction History</h2>
+  <p>View completed auctions.</p>
+
+  <input
+    type="text"
+    placeholder="Search product..."
+    [(ngModel)]="searchText"
+    class="search-box"
+  >
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Auction ID</th>
+          <th>Product</th>
+          <th>Winner</th>
+          <th>Final Bid</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (auction of filteredAuctions; track auction.id) {
+          <tr>
+            <td>{{ auction.id }}</td>
+            <td>{{ auction.product }}</td>
+            <td>{{ auction.winner }}</td>
+            <td>₹{{ auction.amount }}</td>
+            <td>{{ auction.status }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5">No auctions found.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
